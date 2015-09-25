@@ -21,9 +21,7 @@ access_token_secret = <your access token secret>
 #########################################################################
 
 # Define supported parameters and default values
-parser = argparse.ArgumentParser(description='Find copied but not attributed tweets. TweetThief retrieves the most recent tweets from a 
-
-specific Twitter user, then searches Twitter for other tweets that are exact copies but are not retweets.')
+parser = argparse.ArgumentParser(description='Find copied but not attributed tweets. TweetThief retrieves the most recent tweets from a specific Twitter user, then searches Twitter for other tweets that are exact copies but are not retweets.')
 parser.add_argument('-a', '--alias', dest='twitter_alias', required=True, help='Twitter alias whose tweets to analyze')
 parser.add_argument('-n', '--numtweets', default=20, type=int, help='Maximum number of tweets to analyze for specified Twitter user; default 20')
 parser.add_argument('-p', '--proxy', default='', required=False, help='HTTPS proxy to use, if necessary, in the form of https://proxy.com:port')
