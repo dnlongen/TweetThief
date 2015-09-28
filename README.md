@@ -22,7 +22,7 @@ Requirements:
 =============
 
 * Requires tweepy, the Twitter API module for Python, available from https://github.com/tweepy/tweepy
-* Requires an application token for the Twitter API. refer to documentation at https://dev.twitter.com/oauth/overview/application-owner-access-tokens, and set up your own app-specific tokens at https://apps.twitter.com
+* Requires an application token for the Twitter API. Refer to documentation at https://dev.twitter.com/oauth/overview/application-owner-access-tokens, and set up your own app-specific tokens at https://apps.twitter.com
  
 Note that the search API typically serves up only tweets from the last week or so, and that it is "tuned" toward most relevant results rather than most complete results. I have found some limited cases where the search API does not return results for a search, even though I created a duplicate tweet to search for. YMMV.
 
@@ -58,6 +58,7 @@ optional arguments:
 Change Log:
 =============
 
+* v0.2 Added --loose-match option to search for copied tweets with a less-strict match
 * v0.1 Original release.
 
 Errata:
