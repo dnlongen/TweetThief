@@ -30,7 +30,7 @@ Usage:
 =============
 
 ```
-usage: tweetthief.py [-h] -a TWITTER_ALIAS [-n NUMTWEETS] [-p PROXY]
+usage: tweetthief.py [-h] -a TWITTER_ALIAS [-n NUMTWEETS] [-l] [-p PROXY]
 
 Find copied but not attributed tweets. TweetThief retrieves the most recent
 tweets from a specific Twitter user, then searches Twitter for other tweets
@@ -43,10 +43,16 @@ optional arguments:
   -n NUMTWEETS, --numtweets NUMTWEETS
                         Maximum number of tweets to analyze for specified
                         Twitter user; default 20
+  -l, --loose-match     Loose matching. By default, TweetThief matches only an
+                        exact copy of the full text of a tweet; loose matching
+                        will match if the copy contains the original tweet.
+                        For example, if the original tweet is "Help Me" and
+                        the copy is "Help Me Rhonda" TweetThief normally will
+                        not report this as a match, but in loose-match mode it
+                        will.
   -p PROXY, --proxy PROXY
                         HTTPS proxy to use, if necessary, in the form of
                         https://proxy.com:port
-
 ```
 
 Change Log:
@@ -57,4 +63,4 @@ Change Log:
 Errata:
 =============
 
-* The Twitter APi search module serves up only tweets from the last week or so, and is "tuned" toward most relevant results rather than most complete results. I have found some limited cases where the search API does not return results for a search, even though I created a duplicate tweet to search for. YMMV.
+* The Twitter API search module serves up only tweets from the last week or so, and is "tuned" toward most relevant results rather than most complete results. I have found some limited cases where the search API does not return results for a search, even though I created a duplicate tweet to search for. YMMV.
