@@ -24,11 +24,13 @@ access_token_secret = <your access token secret>
 parser = argparse.ArgumentParser(description='Find copied but not attributed tweets. TweetThief retrieves the most recent tweets from a specific Twitter user, then searches Twitter for other tweets that are exact copies but are not retweets.')
 parser.add_argument('-a', '--alias', dest='twitter_alias', required=True, help='Twitter alias whose tweets to analyze')
 parser.add_argument('-n', '--numtweets', default=20, type=int, help='Maximum number of tweets to analyze for specified Twitter user; default 20')
+parser.add_argument('-l', '--loose-match', dest='loose_match', default=False, action='store_true', help='Loose matching. By default, TweetThief matches only an exact copy of the full text of a tweet; loose matching will match if the copy contains the original tweet. For example, if the original tweet is "Help Me" and the copy is "Help Me Rhonda" TweetThief normally will not report this as a match, but in loose-match mode it will.')
 parser.add_argument('-p', '--proxy', default='', required=False, help='HTTPS proxy to use, if necessary, in the form of https://proxy.com:port')
 args=parser.parse_args()
 twitter_load=args.numtweets
 twitter_list=[args.twitter_alias]
 https_proxy=args.proxy
+loose_match=args.loose_match
 
 #Uncomment for Python 2:
 #if sys.stdout.encoding != 'cp850':
@@ -45,6 +47,8 @@ if sys.stderr.encoding != 'cp850':
 def parse_twitter(twitter_user):
     status        = ""
     for status in api.user_timeline(twitter_user,count=twitter_load):
+        # since_id returns statuses more recent than specified ID; max_id returns statuses earlier than specified ID
+        # no native way to filter user_timeline based on a time window?
         orig_user = status.user.screen_name
         orig_text = status.text
         orig_id   = str(status.id)
@@ -53,7 +57,6 @@ def parse_twitter(twitter_user):
         if (status.retweeted): continue # no sense in checking for matches to something I retweeted
         if (not status.entities["urls"] == []): # if there are urls, expand them
           for url in status.entities["urls"]: orig_text=orig_text.replace(url["url"], url["expanded_url"])
-        repeat = ""
         try:
           for repeat in api.search("\"" + orig_text + "\""):
             repeat_user = repeat.user.screen_name
@@ -65,7 +68,7 @@ def parse_twitter(twitter_user):
             repeat_link = "https://twitter.com/" + repeat_user + "/status/" + repeat_id
             if (not repeat.entities["urls"] == []): # if there are urls, expand them
               for url in repeat.entities["urls"]: repeat_text=repeat_text.replace(url["url"], url["expanded_url"])
-            if (not repeat_text==orig_text): continue # make sure complete original and new tweets are an exact match
+            if (not repeat_text==orig_text and not loose-match): continue # make sure complete original and new tweets are an exact match
             print("*******************")
             print("Original tweet: ")
             print("Status ID " + orig_id + " sent at " + orig_date + " by " + orig_user)
