@@ -8,15 +8,24 @@ Who is stealing your tweets?
 * Email: david (at) securityforrealpeople.com
 * More info: http://www.securityforrealpeople.com/tweetthief
 
-Find tweets that are an exact copy of your own, but that are not retweets nor attributed to you. TweetThief retrieves your most recent tweets (by default the most recent 20, but that can be adjusted using the -n command line argument). It then searches Twitter for other tweets with the exact same text.
+I've noticed a handful of times where one of my tweets, or tweets I recognize from someone else, are duplicated (not retweeted) verbatim by apparent Twitter bots. It struck a curious chord for me, so this weekend I wrote up a tool to look for what I call "parrot accounts" - Twitter accounts that generate no original content, but merely copy others'.
 
-Supply TweetThief with a Twitter alias (your "@name") via the -a argument.
+When given the name of a target user (for instance, your own), tweetthief retrieves the most recent tweets by that account. By default it looks at your most recent 20 tweets, but that can be adjusted with the -n parameter. It then searches to see if anyone else has tweeted the exact same thing. It outputs the original and copied tweets, with the Twitter handle and exact posting time for each.
+
+Supply tweetthief with a Twitter alias (your "@name") via the -a argument.
 
 If Internet access requires a proxy, supply it with the parameter -p, in the form of https://proxy.url:port, for instance, -p https://proxy.abc.com:8080
 
-Twitter converts every url into a "t.co" shortlink. The same url tweeted again later will get a different shortlink. TweetThief handles this by examining the url entity, and replaconf the t.co shortlink with the expanded url provided by the Twitter API.
+Twitter converts every url into a "t.co" shortlink. The same url tweeted again later will get a different shortlink. TweetThief handles this by examining the url entity, and replacing the t.co shortlink with the expanded url provided by the Twitter API.
 
 The Twitter API is rate-limited, as described at https://dev.twitter.com/rest/public/rate-limiting. If you get a rate-limit error running tweetthief, try again with a smaller -n, or wait a few minutes.
+
+I can think of a few possible motivations for these parrot accounts:
+* Fake accounts used in "buy more followers" scams
+* Real accounts trying to boost their own followers by claiming others' thoughts for their own
+* Something akin to the faux LinkedIn accounts that were reported to be mapping out infosec people's social graphs
+* Botnet command and control channels, hiding malicious instructions in innocuous-looking copied tweets
+* Or something completely different
 
 Requirements:
 =============
@@ -32,7 +41,7 @@ Usage:
 ```
 usage: tweetthief.py [-h] -a TWITTER_ALIAS [-n NUMTWEETS] [-l] [-p PROXY]
 
-Find copied but not attributed tweets. TweetThief retrieves the most recent
+Find copied but not attributed tweets. Tweetthief retrieves the most recent
 tweets from a specific Twitter user, then searches Twitter for other tweets
 that are exact copies but are not retweets.
 
@@ -43,11 +52,11 @@ optional arguments:
   -n NUMTWEETS, --numtweets NUMTWEETS
                         Maximum number of tweets to analyze for specified
                         Twitter user; default 20
-  -l, --loose-match     Loose matching. By default, TweetThief matches only an
+  -l, --loose-match     Loose matching. By default, tweetthief matches only an
                         exact copy of the full text of a tweet; loose matching
                         will match if the copy contains the original tweet.
                         For example, if the original tweet is "Help Me" and
-                        the copy is "Help Me Rhonda" TweetThief normally will
+                        the copy is "Help Me Rhonda" tweetthief normally will
                         not report this as a match, but in loose-match mode it
                         will.
   -p PROXY, --proxy PROXY
