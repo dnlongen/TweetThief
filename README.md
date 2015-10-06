@@ -27,6 +27,8 @@ I can think of a few possible motivations for these parrot accounts:
 * Botnet command and control channels, hiding malicious instructions in innocuous-looking copied tweets
 * Or something completely different
 
+As a side note, not every duplicated tweet is necessarily "stolen" - many of the duplicates I see are bots tweeting RSS streams or CMS posts. Since they are tweeting the same links and titles, they are naturally going to be similar. Tweetthief doesn't make any attempt to sift out these tweets. Keep that in mind when perusing the output. That said, it's pretty easy to tell the difference between RSS tweets and copied original tweets.
+
 Requirements:
 =============
 
