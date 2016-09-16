@@ -6,7 +6,7 @@ Who is stealing your tweets?
 * Written by David Longenecker
 * Twitter: @dnlongen
 * Email: david (at) securityforrealpeople.com
-* More info: http://www.securityforrealpeople.com/tweetthief
+* More info: https://securityforrealpeople.com/tweetthief
 
 I've noticed a handful of times where one of my tweets, or tweets I recognize from someone else, are duplicated (not retweeted) verbatim by apparent Twitter bots. It struck a curious chord for me, so this weekend I wrote up a tool to look for what I call "parrot accounts" - Twitter accounts that generate no original content, but merely copy others'.
 
